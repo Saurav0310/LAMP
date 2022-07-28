@@ -6,10 +6,14 @@ pipeline {
         bat 'docker build . -t nginxjenkins:01'
       }
     }
-
+    
     stage('Docker hub login') {
       steps {
-        echo "ToDo: Logging to docker hub"
+        withCredentials([string(credentialsId: 'Saurav46', variable: 'dockerhubpwd')]) {
+        bat 'docker login -u devopshint -p $(dockerhubpwd)'
+}
+      
+       bat 'docker push devopshint/my-app-1.0'   
       }
     }
 
