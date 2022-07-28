@@ -1,32 +1,32 @@
-pipeline{
+pipeline {
+  agent any
+  stages {
+    stage('Build Docker image') {
+      steps {
+        bat 'docker build . -t nginxjenkins:01'
+      }
+    }
 
-	agent any
+    stage('Docker hub login') {
+      steps {
+        echo "ToDo: Logging to docker hub"
+      }
+    }
 
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('saurav46')
-	}
+    stage('Docker push image') {
+      steps {
+        echo  "ToDo: pushing image to docker hub"
+      }
+    }
+      stage('Docker run') {
+      steps {
+        bat 'docker run --name jenkinsnginx -d -p 8082:80 nginxjenkins:01'
+          echo "Running the image"
+      }
+    }
 
-	stages {
-
-		stage('Build') {
-
-			steps {
-				bat 'docker build . -t nginxjenkins:01'
-			}
-		}
-
-		stage('Login') {
-
-			steps {
-				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
-
-		stage('Push') {
-
-			steps {
-				bat 'docker push saurav46/myapp:1.0'
-			}
-		}
-	}
+  }
+  tools {
+    maven 'MAVEN'
+  }
 }
