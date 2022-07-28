@@ -20,7 +20,7 @@ pipeline {
     }
       stage('Docker run') {
       steps {
-        bat 'docker run --name sauravnginx -d -p 8083:80 nginxjenkins:01'
+        bat 'docker run --name saurav1nginx -d -p 8084:80 nginxjenkins:01'
           echo "Running the image"
       }
     }
