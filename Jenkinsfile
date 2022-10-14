@@ -1,30 +1,17 @@
 pipeline {
   agent any
   stages {
-    stage('Build Docker image') {
+    stage('Installing') {
       steps {
-        bat 'docker build . -t nginxjenkins:01'
+        bat 'sudo a2ensite your_domain'
       }
     }
 
-    stage('Docker hub login') {
+    stage('reloading') {
       steps {
-        echo "ToDo: Logging to docker hub"
+        echo "sudo systemctl reload apache2"
       }
     }
-
-    stage('Docker push image') {
-      steps {
-        echo  "ToDo: pushing image to docker hub"
-      }
-    }
-      stage('Docker run') {
-      steps {
-        bat 'docker run --name saurav1nginx -d -p 8084:80 nginxjenkins:01'
-          echo "Running the image"
-      }
-    }
-
   }
   tools {
     maven 'MAVEN'
